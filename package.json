@@ -2,15 +2,20 @@
   "name": "Twitterhyno",
   "version": "0.0.1",
   "description": "Twitterhyno is Automation app for Twitter",
-  "main": "./src/index.ts",
+  "main": "./app.js",
   "scripts": {
     "build": "webpack -p",
-    "dev": "webpack -d -w"
+    "dev": "webpack -d -w",
+    "server-dev": "nodemon app.js"
   },
   "author": "Egor Danchenkov",
   "license": "MIT",
   "devDependencies": {
+    "@types/request": "0.0.42",
     "awesome-typescript-loader": "^3.1.2",
+    "copy-webpack-plugin": "^4.0.1",
+    "express": "^4.15.2",
+    "request": "^2.81.0",
     "source-map-loader": "^0.2.1",
     "tslint": "^5.1.0",
     "tslint-loader": "^3.5.2"
