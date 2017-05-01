@@ -1,46 +1,53 @@
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+
 module.exports = {
-    entry: "./src/index.ts",
-    output: {
-        filename: "bundle.js",
-        path: __dirname + "/build"
+    entry : "./www/index.ts",
+    output : {
+        filename : "bundle.js",
+        path : __dirname + "/build"
     },
     // Awesome typescript loader stores errors in webpack stats
     // Print full error
-    stats: {
-        colors: true,
-        modules: true,
-        reasons: true,
-        errorDetails: true
+    stats : {
+        colors : true,
+        modules : true,
+        reasons : true,
+        errorDetails : true
     },
 
     // Enable sourcemaps for debugging webpack's output.
-    devtool: "source-map",
+    devtool : "source-map",
 
-    resolve: {
+    resolve : {
         // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: [".ts", ".tsx", ".js", ".json"]
+        extensions : [".ts", ".tsx", ".js", ".json"]
     },
 
-    module: {
-        rules: [
+    module : {
+        rules : [
             // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
             {
-                test: /\.tsx?$/,
-                loader: "awesome-typescript-loader"
+                test : /\.tsx?$/,
+                loader : "awesome-typescript-loader"
             },
 
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
             {
-                enforce: "pre",
-                test: /\.js$/,
-                loader: "source-map-loader"
+                enforce : "pre",
+                test : /\.js$/,
+                loader : "source-map-loader"
             },
             {
-                test: /\.ts$/,
-                enforce: 'pre',
-                loader: 'tslint-loader',
-                options: { /* Loader options go here */ }
+                test : /\.ts$/,
+                enforce : 'pre',
+                loader : 'tslint-loader',
+                options : { /* Loader options go here */ }
             }
         ]
     },
+    plugins : [
+        new CopyWebpackPlugin([
+            { from : 'index.html', to : 'index.html' }
+        ])
+    ]
 };
