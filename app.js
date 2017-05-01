@@ -44,13 +44,9 @@ app.get('/auth/callback', function (req, res) {
             }
         }, function (error, response, body) {
             var data = qs.parse(body);
-            console.log(data)
-            res.send(response)
-
-        })
+            res.send(data)
+        });
     });
-
-
 });
 
 app.listen(config.server.port, function () {
