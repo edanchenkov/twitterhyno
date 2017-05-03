@@ -3,11 +3,11 @@ import config = require("./../config");
 
 const client = new TwitterApi("test", "test");
 
-let twitterButton = document.querySelector("button");
-
 interface ITwitterResponse {
     oauth_token: string;
 }
+
+let twitterButton = document.querySelector("button");
 
 if (typeof twitterButton !== "undefined" && twitterButton !== null) {
     twitterButton.onclick = () => {
