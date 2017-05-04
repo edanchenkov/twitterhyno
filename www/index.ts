@@ -1,19 +1,26 @@
 import TwitterApi from "./twitterApi";
 import config = require("./../config");
 
-const client = new TwitterApi("test", "test");
-
 interface ITwitterResponse {
-    oauth_token: string;
+    token: string;
 }
 
-let twitterButton = document.querySelector("button");
+window.onload = () => {
+    if (window.location.search) {
+        const urlParams = new URLSearchParams(window.location.search);
 
-if (typeof twitterButton !== "undefined" && twitterButton !== null) {
+        if (urlParams.has("oauth_token") && urlParams.has("oauth_verifier")) {
+            TwitterApi.verify(urlParams.get("oauth_token") as string, urlParams.get("oauth_verifier") as string).then(() => {
+                console.info("done");
+            });
+        }
+    }
+
+    let twitterButton = document.querySelector("button") as HTMLElement;
+
     twitterButton.onclick = () => {
-        client.auth().then((data: ITwitterResponse) => {
-            // window.open(config.authenticateUrl + data.oauth_token, "_blank", "toolbar=0,location=0,menubar=0");
-            window.open(config.authenticateUrl + data.oauth_token, "_self");
+        TwitterApi.auth().then((data: ITwitterResponse) => {
+            window.open(config.authenticateUrl + data.token, "_self");
         });
     };
-}
+};

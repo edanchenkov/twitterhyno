@@ -1,19 +1,17 @@
 import config = require("./../config");
 
 /* ADD PORT HERE */
-const baseUrl = config.server.protocol + "://" + config.server.host;
+const baseUrl = config.server.protocol + "://" + config.server.host + ":" + config.server.port;
 
 class TwitterApi {
-    private accessToken: string;
-    private accessTokenSecret: string;
-
-    constructor(accessToken: string, accessTokenSecret: string) {
-        this.accessToken = accessToken;
-        this.accessTokenSecret = accessTokenSecret;
+    public static auth(): Promise<object> {
+        return fetch(`${baseUrl}/auth/request_token`).then((res) => {
+            return res.json();
+        });
     }
 
-    public auth(): Promise<object> {
-        return fetch(baseUrl + "/auth/request_token").then((res) => {
+    public static verify(oauthToken: string, oauthVerifier: string): Promise<object> {
+        return fetch(`${baseUrl}/auth/verify?oauth_token=${oauthToken}&oauth_verifier=${oauthVerifier}`).then((res) => {
             return res.json();
         });
     }
